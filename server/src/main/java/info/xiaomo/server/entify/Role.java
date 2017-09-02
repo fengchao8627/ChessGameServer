@@ -1,10 +1,15 @@
 package info.xiaomo.server.entify;
 
+import info.xiaomo.gameCore.base.tuple.TwoTuple;
 import info.xiaomo.gameCore.persist.persist.Persistable;
 import info.xiaomo.server.db.DataType;
+import info.xiaomo.server.system.attribute.entity.Attribute;
+import info.xiaomo.server.system.constant.AttributeConst.AttributeType;
 import io.protostuff.Exclude;
 import io.protostuff.Tag;
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,6 +47,12 @@ public class Role implements Persistable {
 
     @Tag(5)
     private int name;
+
+    @Tag(6)
+    private Map<AttributeType, TwoTuple<Attribute, Attribute>> attributes;
+
+    @Tag(7)
+    private Attribute finalAttribute;
 
 
     @Override
