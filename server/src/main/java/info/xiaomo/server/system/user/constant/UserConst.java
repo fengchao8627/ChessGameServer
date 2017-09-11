@@ -1,4 +1,4 @@
-package info.xiaomo.server.system.user.field;
+package info.xiaomo.server.system.user.constant;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -14,7 +14,7 @@ package info.xiaomo.server.system.user.field;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public interface UserField {
+public interface UserConst {
 
     /**
      * 唯一id

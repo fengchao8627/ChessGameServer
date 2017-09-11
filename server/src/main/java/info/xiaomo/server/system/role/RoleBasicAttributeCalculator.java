@@ -4,8 +4,7 @@ import info.xiaomo.gameCore.base.tuple.TwoTuple;
 import info.xiaomo.server.entify.Role;
 import info.xiaomo.server.system.attribute.AttributeCalculator;
 import info.xiaomo.server.system.attribute.entity.Attribute;
-import info.xiaomo.server.system.constant.AttributeConst.AttributeType;
-import info.xiaomo.server.system.constant.AttributeConst.AttributeType.*;
+import info.xiaomo.server.system.attribute.constant.AttributeConst.AttributeType;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

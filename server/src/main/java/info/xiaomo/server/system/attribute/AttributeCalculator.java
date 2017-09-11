@@ -2,7 +2,7 @@ package info.xiaomo.server.system.attribute;
 
 import info.xiaomo.gameCore.base.tuple.TwoTuple;
 import info.xiaomo.server.system.attribute.entity.Attribute;
-import info.xiaomo.server.system.constant.AttributeConst.AttributeType;
+import info.xiaomo.server.system.attribute.constant.AttributeConst.AttributeType;
 
 public interface AttributeCalculator<T> {
 

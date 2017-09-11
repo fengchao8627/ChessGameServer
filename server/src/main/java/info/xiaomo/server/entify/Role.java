@@ -4,7 +4,7 @@ import info.xiaomo.gameCore.base.tuple.TwoTuple;
 import info.xiaomo.gameCore.persist.persist.Persistable;
 import info.xiaomo.server.db.DataType;
 import info.xiaomo.server.system.attribute.entity.Attribute;
-import info.xiaomo.server.system.constant.AttributeConst.AttributeType;
+import info.xiaomo.server.system.attribute.constant.AttributeConst.AttributeType;
 import io.protostuff.Exclude;
 import io.protostuff.Tag;
 import lombok.Data;

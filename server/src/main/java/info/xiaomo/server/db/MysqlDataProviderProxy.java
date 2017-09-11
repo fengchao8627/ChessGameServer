@@ -11,7 +11,7 @@ import info.xiaomo.server.db.mapper.UserMapper;
 import info.xiaomo.server.db.msyql.UserPersistFactory;
 import info.xiaomo.server.entify.User;
 import info.xiaomo.server.server.ServerOption;
-import info.xiaomo.server.system.user.field.UserField;
+import info.xiaomo.server.system.user.constant.UserConst;
 import info.xiaomo.server.util.JdbcUtil;
 
 import java.util.List;
@@ -64,10 +64,10 @@ public class MysqlDataProviderProxy implements IDataProvider {
         //加载所有的uid
         List<Map<String, Object>> users = template.queryList(SELECT_USER, JdbcTemplate.MAP_MAPPER);
         for (Map<String, Object> user : users) {
-            long id = (long) user.get(UserField.ID);
-            String loginName = (String) user.get(UserField.LOGIN_NAME);
-            int sid = (int) user.get(UserField.SERVER_ID);
-            int pid = (int) user.get(UserField.PLATFORM_ID);
+            long id = (long) user.get(UserConst.ID);
+            String loginName = (String) user.get(UserConst.LOGIN_NAME);
+            int sid = (int) user.get(UserConst.SERVER_ID);
+            int pid = (int) user.get(UserConst.PLATFORM_ID);
             nameSidPid2Uid.put(loginName + "_" + sid + "_" + pid, id);
             uidMap.put(id, NULL);
         }

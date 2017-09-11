@@ -2,7 +2,7 @@ package info.xiaomo.server.db.mapper;
 
 import info.xiaomo.gameCore.persist.jdbc.RowMapper;
 import info.xiaomo.server.entify.User;
-import info.xiaomo.server.system.user.field.UserField;
+import info.xiaomo.server.system.user.constant.UserConst;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,13 +18,13 @@ public class UserMapper implements RowMapper<User> {
     @Override
     public User mapping(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setId(rs.getLong(UserField.ID));
-        user.setLoginName(rs.getString(UserField.LOGIN_NAME));
-        user.setServerId(rs.getInt(UserField.SERVER_ID));
-        user.setPlatformId(rs.getInt(UserField.PLATFORM_ID));
-        user.setGmLevel(rs.getInt(UserField.GM_LEVEL));
-        user.setIdNumber(rs.getString(UserField.ID_NUMBER));
-        user.setRegisterTime(rs.getInt(UserField.REGISTER_TIME));
+        user.setId(rs.getLong(UserConst.ID));
+        user.setLoginName(rs.getString(UserConst.LOGIN_NAME));
+        user.setServerId(rs.getInt(UserConst.SERVER_ID));
+        user.setPlatformId(rs.getInt(UserConst.PLATFORM_ID));
+        user.setGmLevel(rs.getInt(UserConst.GM_LEVEL));
+        user.setIdNumber(rs.getString(UserConst.ID_NUMBER));
+        user.setRegisterTime(rs.getInt(UserConst.REGISTER_TIME));
         return user;
     }
 

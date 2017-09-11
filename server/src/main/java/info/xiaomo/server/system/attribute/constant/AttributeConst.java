@@ -1,4 +1,4 @@
-package info.xiaomo.server.system.constant;
+package info.xiaomo.server.system.attribute.constant;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
