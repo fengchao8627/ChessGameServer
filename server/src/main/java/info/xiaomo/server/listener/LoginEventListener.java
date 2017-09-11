@@ -3,8 +3,7 @@ package info.xiaomo.server.listener;
 import info.xiaomo.server.entify.User;
 import info.xiaomo.server.event.EventType;
 import info.xiaomo.server.event.IEventListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -20,12 +19,12 @@ import org.slf4j.LoggerFactory;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
+@Slf4j
 public class LoginEventListener implements IEventListener {
-    public static final Logger LOGGER = LoggerFactory.getLogger(LoginEventListener.class);
 
     @Override
     public void update(EventType type, Object param) {
         User user = (User) param;
-        LOGGER.warn("用户 {} 登录游戏", user.getLoginName());
+        log.warn("用户 {} 登录游戏", user.getLoginName());
     }
 }

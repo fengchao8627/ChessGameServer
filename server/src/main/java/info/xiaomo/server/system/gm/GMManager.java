@@ -1,7 +1,7 @@
 package info.xiaomo.server.system.gm;
 
 import info.xiaomo.server.entify.User;
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.system.gm.command.GM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,26 +33,26 @@ public class GMManager {
     private GMManager() {
     }
 
-    public void execGMCmdFromGame(Session session, String command) {
+    public void execGMCmdFromGame(UserSession userSession, String command) {
 
-        User user = session.getUser();
+        User user = userSession.getUser();
         if (user == null) {
             return;
         }
 
         int gmLevel = user.getGmLevel();
 
-        LOGGER.warn("玩家:{} 执行gm命令: {}", session.getUser().getLoginName(), command);
-        String ret = execGmCmd(session, command, gmLevel);
+        LOGGER.warn("玩家:{} 执行gm命令: {}", userSession.getUser().getLoginName(), command);
+        String ret = execGmCmd(userSession, command, gmLevel);
         if (ret != null) {
             //发送到聊天频道
 //            ResGMMessage msg = new ResGMMessage();
 //            msg.setContent(ret);
-//            MessageUtil.sendMsg(msg, session.getUser().getId());
+//            MessageUtil.sendMsg(msg, userSession.getUser().getId());
         }
     }
 
-    private String execGmCmd(Session session, String gmStr, int gmLevel) {
+    private String execGmCmd(UserSession userSession, String gmStr, int gmLevel) {
 
 
         gmStr = gmStr.substring(1);
@@ -70,7 +70,7 @@ public class GMManager {
 
         GM gm = GMCommand.getGm(command);
 
-        String ret = gm.executeGM(session, commandArray);
+        String ret = gm.executeGM(userSession, commandArray);
 
         if (ret != null) {
             return ret;

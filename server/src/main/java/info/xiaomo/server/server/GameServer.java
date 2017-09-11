@@ -2,6 +2,7 @@ package info.xiaomo.server.server;
 
 import info.xiaomo.gameCore.network.NetworkService;
 import info.xiaomo.gameCore.network.NetworkServiceBuilder;
+import info.xiaomo.gameCore.network.pool.MessageRouter;
 import info.xiaomo.server.config.ConfigDataManager;
 import info.xiaomo.server.constant.GameConst;
 import info.xiaomo.server.db.DataCenter;
@@ -39,7 +40,7 @@ public class GameServer {
         int workerLoopGroupCount = Runtime.getRuntime().availableProcessors() < 8 ? 8
                 : Runtime.getRuntime().availableProcessors();
 
-        GameIMessageAndHandler pool = new GameIMessageAndHandler();
+        GameMessageAndHandlerPool pool = new GameMessageAndHandlerPool();
 
         router = new MessageRouter(pool);
         NetworkServiceBuilder builder = new NetworkServiceBuilder();

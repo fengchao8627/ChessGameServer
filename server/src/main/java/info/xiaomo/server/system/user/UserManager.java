@@ -6,7 +6,7 @@ import info.xiaomo.server.entify.User;
 import info.xiaomo.server.event.EventType;
 import info.xiaomo.server.event.EventUtil;
 import info.xiaomo.server.protocol.UserProto.LoginResponse;
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.server.SessionManager;
 import info.xiaomo.server.util.IDUtil;
 import info.xiaomo.server.util.MessageUtil;
@@ -42,9 +42,9 @@ public class UserManager {
     /**
      * 登录游戏
      *
-     * @param session session
+     * @param userSession userSession
      */
-    public void login(Session session, String loginName) {
+    public void login(UserSession userSession, String loginName) {
         if (loginName.isEmpty()) {
             return;
         }
@@ -54,13 +54,13 @@ public class UserManager {
             user = createUser(loginName);
             if (user == null) {
                 log.error("用户创建失败:{},{},{}", loginName);
-                session.close();
+                userSession.close();
                 return;
             }
         }
 
-        session.setUser(user); // 注册账户
-        SessionManager.getInstance().register(session);// 注册session
+        userSession.setUser(user); // 注册账户
+        SessionManager.getInstance().register(userSession);// 注册session
 
         LoginResponse.Builder builder = LoginResponse.newBuilder();
         LoginResponse loginResponse = builder.setUserId(user.getId()).build();
@@ -94,8 +94,8 @@ public class UserManager {
     /**
      * 退出
      */
-    public void logout(Session session) {
-        DataCenter.updateData(session.getUser().getId(), DataType.USER, true);
-        EventUtil.fireEvent(EventType.LOGOUT, session.getUser());
+    public void logout(UserSession userSession) {
+        DataCenter.updateData(userSession.getUser().getId(), DataType.USER, true);
+        EventUtil.fireEvent(EventType.LOGOUT, userSession.getUser());
     }
 }

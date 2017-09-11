@@ -2,7 +2,7 @@ package info.xiaomo.server.util;
 
 
 import com.google.protobuf.AbstractMessage;
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.server.SessionManager;
 
 import java.util.Collection;
@@ -10,15 +10,15 @@ import java.util.Collection;
 public class MessageUtil {
 
     public static void sendMsg(AbstractMessage msg, long id) {
-        Session session = SessionManager.getInstance().getSession(id);
-        if (session == null) {
+        UserSession userSession = SessionManager.getInstance().getSession(id);
+        if (userSession == null) {
             return;
         }
-        session.sendMessage(msg);
+        userSession.sendMessage(msg);
     }
 
-    public static void sendMsg(Session session, AbstractMessage msg) {
-        session.sendMessage(msg);
+    public static void sendMsg(UserSession userSession, AbstractMessage msg) {
+        userSession.sendMessage(msg);
     }
 
     public static void sendMsgToRids(AbstractMessage msg, long... rids) {

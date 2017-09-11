@@ -1,6 +1,6 @@
 package info.xiaomo.server.system.gm.command.impl;
 
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.system.gm.command.GM;
 
 /**
@@ -21,7 +21,7 @@ public class CloseServerGM implements GM {
 
 
     @Override
-    public String executeGM(Session session, String[] gmStr) {
+    public String executeGM(UserSession userSession, String[] gmStr) {
         return null;
     }
 }

@@ -1,6 +1,6 @@
 package info.xiaomo.server.back;
 
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,15 +36,15 @@ public class BackManager {
         System.exit(0);
     }
 
-    public void exeGM(short sequence, Session session, String command) {
+    public void exeGM(short sequence, UserSession userSession, String command) {
 //        ResGMMessage msg = new ResGMMessage();
 //        msg.setSequence(sequence);
 //        msg.setContent(command);
-//        MessageUtil.sendMsg(msg, session.getUser().getId());
+//        MessageUtil.sendMsg(msg, userSession.getUser().getId());
 
     }
 
-    public void reloadCfg(short sequence, Session session, int type, String cfgName, String cacheName) {
+    public void reloadCfg(short sequence, UserSession userSession, int type, String cfgName, String cacheName) {
 
     }
 }

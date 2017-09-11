@@ -2,7 +2,7 @@ package info.xiaomo.server.system.user.handler;
 
 import info.xiaomo.gameCore.network.AbstractHandler;
 import info.xiaomo.server.protocol.UserProto.LoginRequest;
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.system.user.UserManager;
 
 /**
@@ -23,8 +23,8 @@ public class LoginHandler extends AbstractHandler<LoginRequest> {
 
     @Override
     public void doAction() {
-        Session session = (Session) this.session;
-        UserManager.getInstance().login(session, message.getLoginName());
+        UserSession userSession = (UserSession) this.session;
+        UserManager.getInstance().login(userSession, message.getLoginName());
     }
 
 

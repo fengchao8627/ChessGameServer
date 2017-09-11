@@ -3,8 +3,7 @@ package info.xiaomo.server.processor;
 
 import info.xiaomo.gameCore.base.concurrent.command.IQueueDriverCommand;
 import info.xiaomo.gameCore.network.IProcessor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -15,9 +14,9 @@ import java.util.concurrent.Executors;
  * @author zhangli
  * 2017年6月6日 下午9:34:00
  */
+@Slf4j
 public class LogicProcessor implements IProcessor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogicProcessor.class);
     private Executor executor = Executors.newSingleThreadExecutor(r -> new Thread(r, "LOGIC"));
 
     @Override

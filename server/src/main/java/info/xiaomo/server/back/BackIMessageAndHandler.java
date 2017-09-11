@@ -1,12 +1,7 @@
 package info.xiaomo.server.back;
 
 
-import com.google.protobuf.AbstractMessage;
-import info.xiaomo.gameCore.network.AbstractHandler;
-import info.xiaomo.gameCore.network.IMessageAndHandler;
-
-import java.util.HashMap;
-import java.util.Map;
+import info.xiaomo.gameCore.network.pool.MessageAndHandlerPool;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -22,40 +17,9 @@ import java.util.Map;
  * desc  :
  * Copyright(©) 2017 by xiaomo.
  */
-public class BackIMessageAndHandler implements IMessageAndHandler {
-
-
-    // 消息类字典
-    private final Map<Integer, AbstractMessage> messages = new HashMap<>();
-    private final Map<String, Integer> ids = new HashMap<>();
+public class BackIMessageAndHandler extends MessageAndHandlerPool {
 
     public BackIMessageAndHandler() {
-    }
-
-    @Override
-    public AbstractMessage getMessage(int messageId) {
-        return messages.get(messageId);
-    }
-
-    @Override
-    public int getMessageId(AbstractMessage message) {
-        return ids.get(message.getClass().getName());
-    }
-
-    @Override
-    public AbstractHandler getHandler(String handlerName) {
-        return null;
-    }
-
-    @Override
-    public void register(int messageId, AbstractMessage messageClazz, Class<? extends AbstractHandler> handler) {
 
     }
-
-    @Override
-    public void register(int messageId, AbstractMessage messageClazz) {
-
-    }
-
-
 }

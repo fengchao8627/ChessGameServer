@@ -21,49 +21,49 @@ public class SessionManager {
 
     }
 
-    private final ConcurrentMap<Long, Session> uidSessionMap = new ConcurrentHashMap<>();
-    private final ConcurrentMap<Long, Session> ridSessionMap = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Long, UserSession> uidSessionMap = new ConcurrentHashMap<>();
+    private final ConcurrentMap<Long, UserSession> ridSessionMap = new ConcurrentHashMap<>();
 
-    public Session getSession(long uid) {
+    public UserSession getSession(long uid) {
         return uidSessionMap.get(uid);
     }
 
-    public Session getSessionByRoleId(long rid) {
+    public UserSession getSessionByRoleId(long rid) {
         return ridSessionMap.get(rid);
     }
 
-    public void register(Session session) {
-        uidSessionMap.put(session.getUser().getId(), session);
+    public void register(UserSession userSession) {
+        uidSessionMap.put(userSession.getUser().getId(), userSession);
     }
 
-    public void unregister(Session session) {
-        if (session != null) {
-            User user = session.getUser();
-            boolean remove = uidSessionMap.remove(user.getId(), session);
-            unregisterPlayer(session, true);
-            log.info("Session unregister, userId={}, remove={}", user.getId(), remove);
+    public void unregister(UserSession userSession) {
+        if (userSession != null) {
+            User user = userSession.getUser();
+            boolean remove = uidSessionMap.remove(user.getId(), userSession);
+            unregisterPlayer(userSession, true);
+            log.info("UserSession unregister, userId={}, remove={}", user.getId(), remove);
         }
     }
 
-    public Session[] getSessionArray() {
-        Collection<Session> values = uidSessionMap.values();
-        return values.toArray(new Session[values.size()]);
+    public UserSession[] getSessionArray() {
+        Collection<UserSession> values = uidSessionMap.values();
+        return values.toArray(new UserSession[values.size()]);
     }
 
-    public void registerPlayer(Session session) {
-        Role role = session.getRole();
+    public void registerPlayer(UserSession userSession) {
+        Role role = userSession.getRole();
         if (role != null) {
-            ridSessionMap.put(role.getId(), session);
+            ridSessionMap.put(role.getId(), userSession);
         }
     }
 
-    public void unregisterPlayer(Session session, boolean clearUid) {
-        Role role = session.getRole();
+    public void unregisterPlayer(UserSession userSession, boolean clearUid) {
+        Role role = userSession.getRole();
         if (role != null) {
-            ridSessionMap.remove(role.getId(), session);
+            ridSessionMap.remove(role.getId(), userSession);
         }
         if (clearUid) {
-            session.clearAttribute();
+            userSession.clearAttribute();
         }
     }
 
@@ -71,7 +71,7 @@ public class SessionManager {
         return ridSessionMap.containsKey(roleId);
     }
 
-    public Session[] sessionArray() {
-        return ridSessionMap.values().toArray(new Session[0]);
+    public UserSession[] sessionArray() {
+        return ridSessionMap.values().toArray(new UserSession[0]);
     }
 }

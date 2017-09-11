@@ -1,8 +1,9 @@
 package info.xiaomo.server.server;
 
-import com.alibaba.druid.util.Utils;
 import com.google.protobuf.AbstractMessage;
 import info.xiaomo.gameCore.base.common.AttributeUtil;
+import info.xiaomo.gameCore.network.Session;
+import info.xiaomo.gameCore.network.SessionAttributeKey;
 import info.xiaomo.server.entify.Role;
 import info.xiaomo.server.entify.User;
 import io.netty.channel.Channel;
@@ -13,7 +14,7 @@ import java.net.InetSocketAddress;
 
 @Slf4j
 @Data
-public class Session {
+public class UserSession implements Session {
 
     private Channel channel;
 
@@ -25,7 +26,7 @@ public class Session {
 
     private volatile boolean offline = false;
 
-    public Session(Channel channel) {
+    public UserSession(Channel channel) {
         this.channel = channel;
     }
 

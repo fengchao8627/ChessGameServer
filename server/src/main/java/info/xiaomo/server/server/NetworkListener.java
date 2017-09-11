@@ -1,8 +1,10 @@
 package info.xiaomo.server.server;
 
 import info.xiaomo.gameCore.base.common.AttributeUtil;
-import info.xiaomo.gameCore.network.IProcessor;
 import info.xiaomo.gameCore.network.INetworkEventListener;
+import info.xiaomo.gameCore.network.IProcessor;
+import info.xiaomo.gameCore.network.Session;
+import info.xiaomo.gameCore.network.SessionKey;
 import info.xiaomo.server.command.LogoutCommand;
 import info.xiaomo.server.constant.GameConst;
 import io.netty.channel.Channel;
@@ -25,7 +27,7 @@ public class NetworkListener implements INetworkEventListener {
         Channel channel = ctx.channel();
         Session session = AttributeUtil.get(channel, SessionKey.SESSION);
         if (session == null) {
-            session = new Session(channel);
+            session = new UserSession(channel);
             session.setChannel(channel);
             AttributeUtil.set(channel, SessionKey.SESSION, session);
             LOGGER.info("接收到新的连接：" + channel.toString());
@@ -38,21 +40,21 @@ public class NetworkListener implements INetworkEventListener {
     public void onDisconnected(ChannelHandlerContext ctx) {
         Channel channel = ctx.channel();
         Session session = AttributeUtil.get(channel, SessionKey.SESSION);
-        closeSession(session);
+        closeSession((UserSession) session);
     }
 
     @Override
     public void onExceptionOccur(ChannelHandlerContext ctx, Throwable cause) {
     }
 
-    public static void closeSession(Session session) {
-        if (session == null || session.getUser() == null) {
+    public static void closeSession(UserSession userSession) {
+        if (userSession == null || userSession.getUser() == null) {
             //下线
             LOGGER.error("玩家断开连接[没有找到用户信息]");
             return;
         }
         IProcessor processor = GameContext.getGameServer().getRouter().getProcessor(GameConst.QueueId.LOGIN_LOGOUT);
-        processor.process(new LogoutCommand(session));
+        processor.process(new LogoutCommand(userSession));
     }
 
 

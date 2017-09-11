@@ -1,13 +1,13 @@
 package info.xiaomo.server.back;
 
+import info.xiaomo.gameCore.base.common.ExecutorUtil;
 import info.xiaomo.gameCore.base.concurrent.QueueExecutor;
 import info.xiaomo.server.db.DataCenter;
 import info.xiaomo.server.event.EventType;
 import info.xiaomo.server.event.EventUtil;
 import info.xiaomo.server.server.GameContext;
-import info.xiaomo.server.server.Session;
+import info.xiaomo.server.server.UserSession;
 import info.xiaomo.server.server.SessionManager;
-import info.xiaomo.server.util.ExecutorUtil;
 import info.xiaomo.server.util.TimeUtil;
 import io.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
@@ -29,25 +29,25 @@ public class GameCloseThread extends Thread {
      * 关服来源1：命令行，2：后台，3：GM命令，4：JVM钩子
      */
     private int source;
-    private Session session;
+    private UserSession userSession;
 
-    public GameCloseThread(short sequence, int source, Session session) {
+    public GameCloseThread(short sequence, int source, UserSession userSession) {
         super();
         this.sequence = sequence;
         this.source = source;
-        this.session = session;
+        this.userSession = userSession;
         this.setDaemon(false);
     }
 
     private void sendMsg(int code, String text) {
-        if (session == null) {
+        if (userSession == null) {
             return;
         }
 //        ResCloseServerMessage msg = new ResCloseServerMessage();
 //        msg.setSequence(sequence);
 //        msg.setCode(code);
 //        msg.setInfo(text);
-//        session.sendMessage(msg);
+//        userSession.sendMessage(msg);
     }
 
     private void closeAllConnection() {
@@ -58,17 +58,17 @@ public class GameCloseThread extends Thread {
         LOGGER.info("断开所有连接....");
 
 
-        Session[] sessions = SessionManager.getInstance().sessionArray();
-        for (Session session : sessions) {
+        UserSession[] userSessions = SessionManager.getInstance().sessionArray();
+        for (UserSession userSession : userSessions) {
 
-            session.close();
-            ChannelFuture future = session.getChannel().close();
+            userSession.close();
+            ChannelFuture future = userSession.getChannel().close();
             try {
                 future.get(1000, TimeUnit.MILLISECONDS);
             } catch (Exception e) {
-                LOGGER.error(session + ",停服关闭连接失败");
+                LOGGER.error(userSession + ",停服关闭连接失败");
             }
-//            MessageRouter.closeSession(session);
+//            MessageRouter.closeSession(userSession);
         }
 
     }
@@ -311,13 +311,13 @@ public class GameCloseThread extends Thread {
 
         LOGGER.info("服务器已关闭...");
 
-        if (session != null) {
+        if (userSession != null) {
 //            ResCloseServerMessage msg = new ResCloseServerMessage();
 //            msg.setSequence(sequence);
 //            msg.setCode(-1);
 //            msg.setInfo("服务器已关闭...");
             try {
-                ChannelFuture fu = session.getChannel().writeAndFlush(null).sync();
+                ChannelFuture fu = userSession.getChannel().writeAndFlush(null).sync();
                 fu.get();
             } catch (Exception e) {
                 LOGGER.error("发送服务器关闭消息出错.", e);
