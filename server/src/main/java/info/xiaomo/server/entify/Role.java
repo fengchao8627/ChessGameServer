@@ -3,8 +3,8 @@ package info.xiaomo.server.entify;
 import info.xiaomo.gameCore.base.tuple.TwoTuple;
 import info.xiaomo.gameCore.persist.persist.Persistable;
 import info.xiaomo.server.db.DataType;
-import info.xiaomo.server.system.attribute.entity.Attribute;
 import info.xiaomo.server.system.attribute.constant.AttributeConst.AttributeType;
+import info.xiaomo.server.system.attribute.entity.Attribute;
 import io.protostuff.Exclude;
 import io.protostuff.Tag;
 import lombok.Data;
@@ -53,6 +53,9 @@ public class Role implements Persistable {
 
     @Tag(7)
     private Attribute finalAttribute;
+
+    @Tag(8)
+    private int level;
 
 
     @Override
